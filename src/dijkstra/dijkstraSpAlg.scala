@@ -9,7 +9,7 @@ import scala.collection.mutable
 
 final case class DirectedEdge(from: Int, to: Int, weight: Double)
 
-final case class EdgeWeightedDigraph(adj: mutable.LinkedHashMap[Int, List[DirectedEdge]] = mutable.LinkedHashMap())
+final case class EdgeWeightedDigraph(adj: Map[Int, List[DirectedEdge]] = Map.empty)
 
 object EdgeWeightedDigraphOps {
 
@@ -23,7 +23,7 @@ object EdgeWeightedDigraphOps {
       */
     def addEdge(e: DirectedEdge): EdgeWeightedDigraph = {
       val list = g.adj.getOrElse(e.from, List.empty)
-      val adj = g.adj.clone() += (e.from -> (list :+ e))
+      val adj = g.adj + (e.from -> (list :+ e))
       EdgeWeightedDigraph(adj)
     }
   }
@@ -41,7 +41,7 @@ object ShortestPath {
   def run(g: EdgeWeightedDigraph, sourceV: Int): Either[String, ShortestPathCalc] = {
     val size = g.adj.size
 
-    if (sourceV >= g.adj.size) Left(s"Source vertex must in range [0, $size)")
+    if (sourceV >= size) Left(s"Source vertex must in range [0, $size)")
     else {
       val edgeTo = mutable.ArrayBuffer.fill[Option[DirectedEdge]](size)(None)
       val distTo = mutable.ArrayBuffer.fill(size)(Double.PositiveInfinity)
