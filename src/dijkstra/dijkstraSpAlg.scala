@@ -72,8 +72,8 @@ object ShortestPath {
 
 /**
   *
-  * @param edgeTo a sequence of Optional DirectedEdge. Some value is set when source vertex 'sourceV' has
-  *               an edge to specific i vertex
+  * @param edgeTo a sequence which represents the last edge on the shortest path from 'sourceV' to vertex i.
+  *               None means there is no path to vertex i
   * @param distTo a sequence of distances from source vertex to a specific i vertex
   */
 class ShortestPathCalc(edgeTo: Seq[Option[DirectedEdge]], distTo: Seq[Double]) {
